@@ -21,19 +21,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={sansSerifFont.className}>
-        <header>
-          <nav className="border-b border-black flex justify-between">
-            <Link
-              href="/"
-              className={`${displayFont.className} border-r border-black px-6 py-2 tracking-wide text-4xl`}
-            >
-              GP-TODO
-            </Link>
-          </nav>
-        </header>
-        {children}
-      </body>
+      <body className={sansSerifFont.className}>{children}</body>
     </html>
   );
 }
