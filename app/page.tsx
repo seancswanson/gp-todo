@@ -3,7 +3,12 @@ import Image from "next/image";
 export default function Home() {
   return (
     <main className="flex flex-col min-h-screen items-center justify-center gap-6">
-      <Image src="swansong-thick-svg.svg" width={100} height={100} />
+      <Image
+        src="swansong-thick-svg.svg"
+        width={100}
+        height={100}
+        alt="Swansong Logo"
+      />
       <h1>Hey there! We&apos;re cooking something up.</h1>
       <p>
         Inquiries can be sent{" "}
