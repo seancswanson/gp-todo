@@ -1,6 +1,7 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import Link from "next/link";
+import { TiUser } from "react-icons/ti";
 // Font files can be colocated inside of `pages`
 const displayFont = localFont({
   src: "./fonts/Commune-Nuit-Debout-master/fonts/webfonts/NuitDebout/Commune-Nuit_Debout_web.woff2",
@@ -20,8 +21,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={sansSerifFont.className}>
+    <html lang="en" className="h-screen">
+      <body className={`${sansSerifFont.className} h-full`}>
         <header>
           <nav className="border-b border-black flex justify-between">
             <Link
@@ -30,6 +31,14 @@ export default function RootLayout({
             >
               GP-TODO
             </Link>
+            <div className="nav-actions flex items-center">
+              <Link
+                href="/profile"
+                className="border-l border-black h-full flex items-center"
+              >
+                <TiUser size={40} />
+              </Link>
+            </div>
           </nav>
         </header>
         {children}

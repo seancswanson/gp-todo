@@ -1,57 +1,39 @@
 import Image from "next/image";
-import TodoListTile from "./todoListTile";
+import TodoItemBlock from "./todoItemBlock";
 import Link from "next/link";
+import { randomUUID } from "crypto";
+import { TiLightbulb, TiPlus, TiStar } from "react-icons/ti";
+import { getAllTodos } from "@/data/tasks";
+import TodoList from "../components/TodoList";
 
-export default function Dashboard() {
-  const todoListMock = [
-    {
-      title: "Todo 1",
-      description: "This is a description",
-      completed: false,
-      dateCreated: new Date(),
-      age: 0,
-    },
-    {
-      title: "Todo 2",
-      description: "This is a description",
-      completed: true,
-      dateCreated: new Date(),
-      age: 1,
-    },
-    {
-      title: "Todo 3",
-      description: "This is a description",
-      completed: true,
-      dateCreated: new Date(),
-      age: 2,
-    },
-  ];
+export default async function Dashboard() {
+  const tasks = await getAllTodos();
+  console.log(tasks);
+
   return (
     <section className="m-auto mt-0 w-full">
-      <div className="flex flex-col items-center justify-between gap-2">
-        <div className=" border-b  border-black w-full text-center">
+      <div className="flex flex-col items-center justify-between">
+        <div className="border-b py-1 border-black w-full text-center">
           <span>Todo Items</span>
-          <Link href="/todo/new">
-            <span className="border border-transparent hover:border-black ml-1 px-1 rounded-sm hover:bg-black hover:cursor-pointer hover:text-white">
-              +
-            </span>
+        </div>
+        <div className="sm:flex-row flex-col border-b mb-2 gap-2 border-black py-1 text-xs flex items-center justify-center w-full text-center">
+          <Link
+            href="/todo/new"
+            className="transform transition-transform hover:scale-105 flex flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+          >
+            Add New Item <TiPlus />
+          </Link>
+          <Link
+            href="/todo/new"
+            className="transform transition-transform hover:scale-105 flex flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+          >
+            Suggest Priority
+            <TiLightbulb />
           </Link>
         </div>
-        {todoListMock.map((todoList, i) => {
-          return (
-            <Link
-              href={{
-                pathname: "/todo",
-                query: {
-                  data: JSON.stringify(todoList),
-                },
-              }}
-              key={i}
-            >
-              <TodoListTile {...todoList} />
-            </Link>
-          );
-        })}
+        <div className="table-container sm:w-1/2 w-full min-w-[100px] max-w-xl">
+          <TodoList todos={tasks} />
+        </div>
       </div>
     </section>
   );
