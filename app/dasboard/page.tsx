@@ -1,7 +1,4 @@
-import Image from "next/image";
-import TodoItemBlock from "./todoItemBlock";
 import Link from "next/link";
-import { randomUUID } from "crypto";
 import { TiLightbulb, TiPlus, TiStar } from "react-icons/ti";
 import { getAllTodos } from "@/data/tasks";
 import TodoList from "../components/TodoList";

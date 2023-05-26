@@ -18,7 +18,11 @@ export default function TodoItem() {
   const dataParamsString = searchParams.get("data");
   const dataObj: TodoItemData = JSON.parse(dataParamsString!);
   const NewTodoItemForm = () => {
-    return <div className="todo border border-black p-2"></div>;
+    return (
+      <div className="todo border border-black p-2">
+        <form action=""></form>
+      </div>
+    );
   };
   return (
     <section className="m-auto mt-0 w-full">
@@ -27,7 +31,9 @@ export default function TodoItem() {
           <span>Add New Todo Item</span>
         </div>
 
-        <div className="flex flex-col gap-2 w-1/2 min-w-[100px]"></div>
+        <div className="flex flex-col gap-2 w-1/2 min-w-[100px]">
+          <NewTodoItemForm />
+        </div>
       </div>
     </section>
   );

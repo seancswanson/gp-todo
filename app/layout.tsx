@@ -2,7 +2,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import Link from "next/link";
 import { TiUser } from "react-icons/ti";
-// Font files can be colocated inside of `pages`
+
 const displayFont = localFont({
   src: "./fonts/Commune-Nuit-Debout-master/fonts/webfonts/NuitDebout/Commune-Nuit_Debout_web.woff2",
 });
