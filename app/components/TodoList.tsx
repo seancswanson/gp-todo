@@ -10,7 +10,7 @@ const TodoList = ({ ...props }: TodoListProps) => {
   return (
     <div className="w-full overflow-x-auto">
       <div className="align-middle inline-block min-w-full">
-        <div className="overflow-hidden border-black border-b-0">
+        <div className="overflow-hidden border-black border-b">
           <div className="min-w-full divide-y divide-black flex flex-col">
             <div className="flex flex-row px-4 py-0 items-center">
               <div className="w-5 all-small-caps">
