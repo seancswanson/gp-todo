@@ -1,13 +1,24 @@
+"use client";
 import Link from "next/link";
 import { TiFolderDelete, TiLightbulb, TiPlus, TiStar } from "react-icons/ti";
 import { getAllTodos } from "@/data/tasks";
 import TodoList from "../components/TodoList";
 import Loading from "./loading";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
+import ActionDialog from "../components/ActionDialog";
+import { ITask } from "../types/tasks";
 
-export default async function Dashboard() {
-  const tasks = await getAllTodos();
-  console.log(tasks);
+interface IDashboardProps {
+  tasks: ITask[];
+  hasIncompleteTask: boolean;
+}
+
+export default function Dashboard({
+  tasks,
+  hasIncompleteTask,
+}: IDashboardProps) {
+  console.log(tasks, hasIncompleteTask);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   return (
     <section className="m-auto mt-0 w-full">
@@ -30,17 +41,27 @@ export default async function Dashboard() {
             <TiLightbulb />
           </Link>
           <div className="h-2 border border-black"></div>
-          <Link
-            href="/todo/new"
+          <button
             className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+            onClick={(event) => {
+              event.stopPropagation();
+              console.log("Open Dialog", dialogRef.current);
+              dialogRef.current?.showModal();
+            }}
           >
             Clear All
             <TiFolderDelete />
-          </Link>
+          </button>
         </div>
         <div className="table-container xs:w-1/2 w-[96%] min-w-[100px] max-w-xl">
-          <TodoList todos={tasks} />
+          {tasks ? <TodoList todos={tasks} /> : "loading"}
         </div>
+        <ActionDialog
+          ref={dialogRef}
+          type="delete"
+          isBatchOperation={true}
+          allItemsComplete={hasIncompleteTask}
+        />
       </div>
     </section>
   );

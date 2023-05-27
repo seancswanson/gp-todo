@@ -6,7 +6,8 @@ interface TodoListProps {
   todos: ITask[];
 }
 
-const TodoList = ({ ...props }: TodoListProps) => {
+const TodoList = ({ todos }: TodoListProps) => {
+  console.log(todos);
   return (
     <div className="w-full overflow-x-auto">
       <div className="align-middle inline-block min-w-full">
@@ -18,7 +19,7 @@ const TodoList = ({ ...props }: TodoListProps) => {
               </div>
               <div className="flex-grow px-4 py-0 all-small-caps">Title</div>
             </div>
-            {props.todos.map((todo, index) => (
+            {todos.map((todo: ITask, index: number) => (
               <TodoItem {...todo} key={index} />
             ))}
           </div>
