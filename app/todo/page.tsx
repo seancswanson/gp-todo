@@ -31,7 +31,7 @@ export default function TodoItem() {
         <div className="border-b py-1 border-black w-full text-center">
           <span>Todo Item</span>
         </div>
-        <div className=" sm:flex-row flex-col flex-row border-b mb-2 gap-2 border-black py-1 text-xs flex items-center justify-center w-full text-center">
+        <div className="xs:flex-row flex-col flex-row border-b mb-2 gap-2 border-black py-1 text-xs flex items-center justify-center w-full text-center">
           <Link
             href="/todo/new"
             className="transform transition-transform hover:scale-105 flex flex-grow-0 items-center px-2 rounded-lg bg-black text-white"

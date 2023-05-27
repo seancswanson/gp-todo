@@ -27,16 +27,21 @@ export default function RootLayout({
           <nav className="border-b border-black flex justify-between">
             <Link
               href="/"
-              className={`${displayFont.className} border-r border-black px-6 py-2 tracking-wide text-4xl`}
+              className={`${displayFont.className} border-r border-black px-6 pt-2 tracking-wide text-4xl`}
             >
               GP-TODO
             </Link>
             <div className="nav-actions flex items-center">
               <Link
                 href="/profile"
-                className="border-l border-black h-full flex items-center"
+                className="border-l border-black h-full flex items-center px-4 "
               >
-                <TiUser size={40} />
+                <img
+                  src="https://api.dicebear.com/6.x/identicon/svg"
+                  alt="avatar"
+                  className="hover:border-black border bg-white border-gray-500 rounded-full transition-all duration-200"
+                  width={40}
+                />
               </Link>
             </div>
           </nav>

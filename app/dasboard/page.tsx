@@ -15,7 +15,7 @@ export default async function Dashboard() {
         <div className="border-b py-1 text-l border-black w-full text-center">
           <span>Todo Items</span>
         </div>
-        <div className="sm:flex-row flex-col border-b mb-2 gap-2 border-black py-1 text-sm flex items-center justify-center w-full text-center">
+        <div className="xs:flex-row flex-col border-b mb-2 gap-2 border-black py-2 text-sm flex items-center justify-center w-full text-center">
           <Link
             href="/todo/new"
             className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
@@ -38,7 +38,7 @@ export default async function Dashboard() {
             <TiFolderDelete />
           </Link>
         </div>
-        <div className="table-container sm:w-1/2 w-full min-w-[100px] max-w-xl">
+        <div className="table-container xs:w-1/2 w-[96%] min-w-[100px] max-w-xl">
           <TodoList todos={tasks} />
         </div>
       </div>
