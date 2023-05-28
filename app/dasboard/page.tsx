@@ -61,6 +61,7 @@ export default function Dashboard({
           type="delete"
           isBatchOperation={true}
           allItemsComplete={hasIncompleteTask}
+          ids={tasks.map((task) => task.id)}
         />
       </div>
     </section>
