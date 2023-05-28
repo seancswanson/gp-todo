@@ -4,10 +4,10 @@ import TodoItem from "./TodoItem";
 
 interface TodoListProps {
   todos: ITask[];
+  onConfirm: () => void;
 }
 
-const TodoList = ({ todos }: TodoListProps) => {
-  console.log(todos);
+const TodoList = ({ todos, onConfirm }: TodoListProps) => {
   return (
     <div className="w-full overflow-x-auto">
       <div className="align-middle inline-block min-w-full">
@@ -20,7 +20,7 @@ const TodoList = ({ todos }: TodoListProps) => {
               <div className="flex-grow px-4 py-0 all-small-caps">Title</div>
             </div>
             {todos.map((todo: ITask, index: number) => (
-              <TodoItem {...todo} key={index} />
+              <TodoItem todo={todo} onConfirm={onConfirm} key={index} />
             ))}
           </div>
         </div>

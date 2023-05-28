@@ -11,35 +11,39 @@ import {
 import { useRef, useState } from "react";
 import ActionDialog from "./ActionDialog";
 
-const TodoItem = ({ ...props }: ITask) => {
+interface ITodoItemProps {
+  todo: ITask;
+  onConfirm: () => void;
+}
+
+const TodoItem = ({ ...props }: ITodoItemProps) => {
   const [isTodoItemHovered, setIsTodoItemHovered] = useState(false);
   const [isActionButtonHovered, setIsActionButtonHovered] = useState(false);
   const [isActionContainerHovered, setIsActionContainerHovered] =
     useState(false);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
-
   return (
     <div
       className="bg-gray-200
                  border-t-0 border-l border-r border-b border-black flex flex-row"
     >
-      <div className="text-center border-r border-black px-4 py-2">
+      <div className="text-center border-r flex border-black px-4 py-2">
         <input
           type="checkbox"
-          checked={props.completed}
+          checked={props.todo.completed}
           onChange={() => {
             console.log("changed");
           }}
         />
       </div>
       <Link
-        href={`/todo/${props.id}`}
+        href={`/todo/${props.todo.id}`}
         className="pl-4 py-2 flex justify-between w-full py-2"
         onMouseOver={() => setIsTodoItemHovered(true)}
         onMouseOut={() => setIsTodoItemHovered(false)}
       >
-        {props.title}
+        {props.todo.title}
       </Link>
 
       <div
@@ -57,13 +61,19 @@ const TodoItem = ({ ...props }: ITask) => {
           onMouseOut={() => setIsActionButtonHovered(false)}
           onClick={(event) => {
             event.stopPropagation();
-            console.log("Open Dialog", dialogRef.current);
             dialogRef.current?.showModal();
           }}
         >
           <TiTrash />
         </button>
-        <ActionDialog ref={dialogRef} type="delete" itemData={props} />{" "}
+        <ActionDialog
+          ref={dialogRef}
+          type="delete"
+          itemData={props.todo}
+          isBatchOperation={false}
+          ids={props.todo.id}
+          onConfirm={props.onConfirm}
+        />{" "}
       </div>
     </div>
   );

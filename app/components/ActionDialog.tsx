@@ -9,21 +9,52 @@ import {
   TiTrash,
 } from "react-icons/ti";
 import { forwardRef, useRef, useState } from "react";
-
+import { deleteItem } from "@/data/tasks";
 interface IActionDialogProps {
   type: "delete" | "edit";
   isBatchOperation?: boolean;
   allItemsComplete?: boolean;
   itemData?: ITask;
   ids?: string | string[];
+  onConfirm: () => void; // add this line
 }
 
 const ActionDialog = forwardRef(
-  (props: IActionDialogProps, ref: React.Ref<HTMLDialogElement>) => {
-    console.log("hi from action", props);
-
+  (
+    {
+      onConfirm,
+      type,
+      isBatchOperation,
+      allItemsComplete,
+      itemData,
+      ids,
+    }: IActionDialogProps,
+    ref: React.Ref<HTMLDialogElement>
+  ) => {
     const handleDelete = (event: React.FormEvent<HTMLFormElement>) => {
-      console.log("delete", props.ids);
+      const deletePromises = [];
+
+      if (Array.isArray(ids)) {
+        // handle multiple ids
+
+        ids.forEach((id) => {
+          deletePromises.push(deleteItem(`http://127.0.0.1:3001/todos/${id}`));
+        });
+      } else {
+        // handle single id
+
+        deletePromises.push(deleteItem(`http://127.0.0.1:3001/todos/${ids}`));
+      }
+
+      Promise.all(deletePromises)
+        .then((data) => {
+          if (onConfirm) {
+            onConfirm(); // Call onConfirm prop after deletion
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     };
 
     const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -39,14 +70,13 @@ const ActionDialog = forwardRef(
       >
         <header className="py-4 px-4 bg-gray-200">
           <h3 id="deleteDialogLabel">
-            Confirm task {props.isBatchOperation ? "list " : ""} clear
+            Confirm task {isBatchOperation ? "list " : ""} clear
           </h3>
         </header>
         <article className="py-2 px-4">
           <p className="p-0">
-            {`This task ${props.isBatchOperation ? "list " : ""} is ${
-              props.itemData?.completed ||
-              (props.isBatchOperation && !props.allItemsComplete)
+            {`This task ${isBatchOperation ? "list " : ""} is ${
+              itemData?.completed || (isBatchOperation && !allItemsComplete)
                 ? "complete"
                 : "not complete"
             }.`}
@@ -56,10 +86,9 @@ const ActionDialog = forwardRef(
           <menu className="sm:flex-row flex-col gap-2 text-sm flex items-center justify-center w-full text-center">
             <button
               className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
-              onClick={(event) => {
-                console.log("No, Cancel");
-              }}
               aria-label="Cancel action"
+              type="button"
+              onClick={() => ref.current?.close()}
             >
               Cancel
               <TiCancel />
@@ -101,10 +130,8 @@ const ActionDialog = forwardRef(
           <menu className="sm:flex-row flex-col gap-2 text-sm flex items-center justify-center w-full text-center">
             <button
               className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
-              onClick={(event) => {
-                console.log("No, Cancel");
-              }}
               aria-label="Cancel action"
+              type="button"
             >
               Cancel
               <TiCancel />
@@ -129,10 +156,10 @@ const ActionDialog = forwardRef(
         className="p-0 rounded-md shadow-lg"
         role="dialog"
         aria-labelledby={
-          props.type === "delete" ? "deleteDialogLabel" : "editDialogLabel"
+          type === "delete" ? "deleteDialogLabel" : "editDialogLabel"
         }
       >
-        {props.type === "delete" ? deleteForm : editForm}
+        {type === "delete" ? deleteForm : editForm}
       </dialog>
     );
   }
