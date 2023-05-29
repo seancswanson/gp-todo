@@ -3,6 +3,4 @@ export interface ITask {
   title: string;
   description: string;
   completed: boolean;
-  dateCreated: string;
-  age: number;
 }
