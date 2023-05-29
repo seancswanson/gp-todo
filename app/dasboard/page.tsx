@@ -52,16 +52,16 @@ export default function Dashboard() {
   return (
     <section className="m-auto mt-0 w-full ">
       <div className="flex flex-col items-center justify-between">
-        <div className="border-b py-1 text-l flex flex-col items-center justify-center border-black w-full text-center">
+        <div className="text-l flex w-full flex-col items-center justify-center border-b border-black py-1 text-center">
           <span>Todo Items</span>
           <span className="text-md text-gray-800 all-small-caps">
             {taskStatus}
           </span>
         </div>
         <IconContext.Provider value={{ size: "1.3em" }}>
-          <div className="xs:flex-row tracking-wide flex-col border-b mb-2 gap-2 border-black py-2 text-sm flex items-center justify-center w-full text-center">
+          <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 border-b border-black py-2 text-center text-sm tracking-wide xs:flex-row">
             <button
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
               onClick={(event) => {
                 event.stopPropagation();
                 newTodoItemDialogRef.current?.showModal();
@@ -71,14 +71,14 @@ export default function Dashboard() {
             </button>
             <Link
               href="/todo/new"
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
             >
               Suggest Priority
               <TiLightbulb />
             </Link>
             <div className="h-2 border border-black"></div>
             <button
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
               onClick={(event) => {
                 event.stopPropagation();
                 actionDialogRef.current?.showModal();
@@ -90,7 +90,7 @@ export default function Dashboard() {
           </div>
         </IconContext.Provider>
         <div
-          className={`table-container xs:w-1/2 w-[96%] min-w-[100px] max-w-xl ${
+          className={`table-container w-[96%] min-w-[100px] max-w-xl xs:w-3/4 ${
             isLoading || tasks.length === 0
               ? "flex justify-center border border-black bg-white"
               : ""

@@ -1,8 +1,6 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import Link from "next/link";
-import { TiUser } from "react-icons/ti";
-
 const displayFont = localFont({
   src: "./fonts/Commune-Nuit-Debout-master/fonts/webfonts/NuitDebout/Commune-Nuit_Debout_web.woff2",
 });
@@ -22,24 +20,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-screen">
-      <body className={`${sansSerifFont.className} h-full`}>
+      <body className={`${sansSerifFont.className} h-full bg-neutral-50`}>
         <header>
-          <nav className="border-b border-black flex justify-between">
+          <nav className="flex justify-between border-b border-black">
             <Link
               href="/"
-              className={`${displayFont.className} border-r border-black px-6 pt-2 tracking-wide text-4xl`}
+              className={`${displayFont.className} border-r border-black px-6 pt-2 text-4xl tracking-wide`}
             >
               GP-TODO
             </Link>
             <div className="nav-actions flex items-center">
               <Link
                 href="/profile"
-                className="border-l border-black h-full flex items-center px-4 "
+                className="flex h-full items-center border-l border-black px-4 "
               >
                 <img
                   src="https://api.dicebear.com/6.x/identicon/svg"
                   alt="avatar"
-                  className="hover:border-black border bg-white border-gray-500 rounded-full transition-all duration-200"
+                  className="rounded-full border border-gray-500 bg-white transition-all duration-200 hover:border-black"
                   width={40}
                 />
               </Link>

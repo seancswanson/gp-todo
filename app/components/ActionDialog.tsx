@@ -102,7 +102,7 @@ const ActionDialog = forwardRef(
         id: uuidv4(),
         title: title.value,
         description: description.value,
-        completed: Math.random() < 0.5 ? true : false,
+        completed: false,
       }).then((data) => {
         if (onConfirm) {
           onConfirm();
@@ -117,12 +117,12 @@ const ActionDialog = forwardRef(
         role="form"
         onSubmit={(event) => handleDelete(event)}
       >
-        <header className="py-4 px-4 bg-gray-200">
+        <header className="bg-gray-200 px-4 py-4">
           <h3 id="deleteDialogLabel">
             Confirm task {isBatchOperation ? "list " : ""} clear
           </h3>
         </header>
-        <article className="py-2 px-4">
+        <article className="px-4 py-2">
           <p className="p-0">
             {`This task ${isBatchOperation ? "list " : ""} is ${
               itemData?.completed || (isBatchOperation && !allItemsComplete)
@@ -131,10 +131,10 @@ const ActionDialog = forwardRef(
             }.`}
           </p>
         </article>
-        <footer className="py-4 px-4">
-          <menu className="tracking-wider sm:flex-row flex-col gap-2 text-sm flex items-center justify-center w-full text-center">
+        <footer className="px-4 py-4">
+          <menu className="flex w-full flex-col items-center justify-center gap-2 text-center text-sm tracking-wider sm:flex-row">
             <button
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
               aria-label="Cancel action"
               type="button"
               onClick={() => {
@@ -145,7 +145,7 @@ const ActionDialog = forwardRef(
               <TiCancel />
             </button>
             <button
-              className="transform bg-red-400 transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-red-400 px-2 text-white transition-transform hover:scale-105"
               type="submit"
               aria-label="Confirm delete action"
             >
@@ -164,32 +164,33 @@ const ActionDialog = forwardRef(
         onSubmit={handleEdit}
         role="form"
       >
-        <header className="py-2 px-4 bg-gray-200">
+        <header className="bg-gray-200 px-4 py-2">
           <h3 id="editDialogLabel">Edit Item</h3>
         </header>
-        <article className="py-2 px-4 flex flex-col gap-2 justify-around">
+        <article className="flex flex-col justify-around gap-2 px-4 py-2">
           <label htmlFor="title">Title</label>
           <input
+            maxLength={29}
             type="text"
             name="title"
             id="title"
             value={itemData?.title}
             onChange={handleTitleChange}
-            className="px-2 border rounded"
+            className="rounded border px-2"
           />
           <label htmlFor="description">Description</label>
           <textarea
-            className="resize-none h-24 w-full border rounded px-2"
+            className="h-24 w-full resize-none rounded border px-2"
             name="description"
             id="description"
             value={itemData?.description}
             onChange={handleDescriptionChange}
           />
         </article>
-        <footer className="py-4 px-4">
-          <menu className="tracking-wider sm:flex-row flex-col gap-2 text-sm flex items-center justify-center w-full text-center">
+        <footer className="px-4 py-4">
+          <menu className="flex w-full flex-col items-center justify-center gap-2 text-center text-sm tracking-wider sm:flex-row">
             <button
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
               aria-label="Cancel action"
               type="button"
               onClick={() => {
@@ -200,7 +201,7 @@ const ActionDialog = forwardRef(
               <TiCancel />
             </button>
             <button
-              className="transform bg-green-400 text-gray-900 transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-green-400 px-2 text-white transition-transform hover:scale-105"
               type="submit"
               aria-label="Confirm add action"
             >
@@ -219,30 +220,31 @@ const ActionDialog = forwardRef(
         onSubmit={handleAdd}
         role="form"
       >
-        <header className="py-2 px-4 bg-gray-200">
+        <header className="bg-gray-200 px-4 py-2">
           <h3 id="editDialogLabel">Add New Item</h3>
         </header>
-        <article className="py-2 px-4 flex flex-col gap-2 justify-around">
+        <article className="flex flex-col justify-around gap-2 px-4 py-2">
           <label htmlFor="title">Title</label>
           <input
+            maxLength={29}
             type="text"
             name="title"
             id="title"
             placeholder="Title"
-            className="px-2 border rounded"
+            className="rounded border px-2"
           />
           <label htmlFor="description">Description</label>
           <textarea
-            className="resize-none h-24 w-full border rounded px-2"
+            className="h-24 w-full resize-none rounded border px-2"
             name="description"
             id="description"
             placeholder="Description"
           />
         </article>
-        <footer className="py-4 px-4">
-          <menu className="tracking-wider sm:flex-row flex-col gap-2 text-sm flex items-center justify-center w-full text-center">
+        <footer className="px-4 py-4">
+          <menu className="flex w-full flex-col items-center justify-center gap-2 text-center text-sm tracking-wider sm:flex-row">
             <button
-              className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
               aria-label="Cancel action"
               type="button"
               onClick={() => {
@@ -253,7 +255,7 @@ const ActionDialog = forwardRef(
               <TiCancel />
             </button>
             <button
-              className="transform bg-green-400 text-gray-900 transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+              className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-green-400 px-2 text-white transition-transform hover:scale-105"
               type="submit"
               aria-label="Confirm add action"
             >
@@ -269,7 +271,7 @@ const ActionDialog = forwardRef(
       <dialog
         ref={ref}
         id="dialog"
-        className="p-0 rounded-md shadow-lg"
+        className="rounded-md p-0 shadow-lg"
         role="dialog"
         aria-labelledby={
           type === "delete"

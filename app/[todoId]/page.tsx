@@ -2,7 +2,7 @@
 import { useSearchParams } from "next/navigation";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   TiEdit,
@@ -32,15 +32,24 @@ export default async function TodoItem({
   const editActionDialogRef = useRef<HTMLDialogElement>(null);
   const deletActionDialogRef = useRef<HTMLDialogElement>(null);
   const dataObj = await getTodo(params.todoId);
-  console.log(dataObj);
 
   const TodoItemFull = ({ ...data }: ITask) => {
     return (
-      <div className="todo border border-black p-4 my-2 rounded-sm bg-white">
-        <h2 className="todo-title text-lg mb-2">{data.title}</h2>
-        <p className="todo-description text-gray-800 mb-2">
-          {data.description}
-        </p>
+      <div className="todo my-2 rounded-sm border border-black bg-white p-4">
+        {data.title ? (
+          <h2 className="todo-title mb-2 text-lg">{data.title}</h2>
+        ) : (
+          <h2 className="todo-title mb-2 text-lg italic">Untitled Task</h2>
+        )}
+        {data.description ? (
+          <p className="todo-description mb-2 text-gray-800">
+            {data.description}
+          </p>
+        ) : (
+          <p className="todo-description mb-2 italic text-gray-800">
+            No description
+          </p>
+        )}
         <p className="todo-completed  mb-2">
           Status:{" "}
           <span className={data.completed ? "text-green-500" : "text-red-500"}>
@@ -54,12 +63,12 @@ export default async function TodoItem({
   return (
     <section className="m-auto mt-0 w-full">
       <div className="flex flex-col items-center">
-        <div className="border-b py-1 border-black w-full text-center">
+        <div className="w-full border-b border-black py-1 text-center">
           <span>Todo Item</span>
         </div>
-        <div className="xs:flex-row flex-col border-b mb-2 gap-2 border-black py-2 text-sm flex items-center justify-center w-full text-center">
+        <div className="mb-2 flex w-full flex-col items-center justify-center gap-2 border-b border-black py-2 text-center text-sm xs:flex-row">
           <button
-            className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+            className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
             onClick={(event) => {
               event.stopPropagation();
               editActionDialogRef.current?.showModal();
@@ -69,14 +78,14 @@ export default async function TodoItem({
           </button>
           <Link
             href="/todo/new"
-            className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+            className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
           >
             Generate Strategy
             <TiLightbulb />
           </Link>
           <div className="h-2 border border-black"></div>
           <button
-            className="transform transition-transform hover:scale-105 flex gap-1 flex-grow-0 items-center px-2 rounded-lg bg-black text-white"
+            className="flex flex-grow-0 transform items-center gap-1 rounded-lg bg-black px-2 text-white transition-transform hover:scale-105"
             onClick={(event) => {
               event.stopPropagation();
               deletActionDialogRef.current?.showModal();
@@ -87,7 +96,7 @@ export default async function TodoItem({
           </button>
         </div>
 
-        <div className="flex flex-col gap-2 w-1/2 min-w-[100px]">
+        <div className="flex w-3/4 min-w-[100px] flex-col gap-2">
           <TodoItemFull {...dataObj} />
         </div>
       </div>
@@ -104,7 +113,7 @@ export default async function TodoItem({
         type="edit"
         ids={dataObj.id}
         onConfirm={() => {
-          window.location.href = "/" + dataObj.id;
+          window.location.href = "/";
         }}
       />
     </section>
